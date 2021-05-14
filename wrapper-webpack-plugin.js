@@ -1,6 +1,5 @@
 'use strict';
 
-const ConcatSource = require("webpack-sources").ConcatSource;
 const ModuleFilenameHelpers = require("webpack/lib/ModuleFilenameHelpers");
 
 class WrapperPlugin {
@@ -48,6 +47,8 @@ class WrapperPlugin {
 			const headerContent = (typeof header === 'function') ? header(fileName, chunkHash) : header;
 			const footerContent = (typeof footer === 'function') ? footer(fileName, chunkHash) : footer;
 
+			const WebpackSources = compiler.webpack.sources;
+			const ConcatSource = WebpackSources.ConcatSource;
 			compilation.assets[fileName] = new ConcatSource(
 				String(headerContent),
 				compilation.assets[fileName],
